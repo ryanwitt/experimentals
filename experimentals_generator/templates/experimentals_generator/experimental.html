@@ -1,0 +1,31 @@
+{% load formulize %}
+
+<h1>{{object.name}}</h1>
+
+<div style="width:600px;">
+
+{% for item in object.opticalrotation_set.all %}
+
+[&alpha;]<sup>{{item.temperature}}</sup><sub>D</sub>
+{{item.value}} (<i>c</i> {{item.concentration}}, {{item.solvent}});
+
+{% endfor %}
+
+{% for item in object.gcretentiontime_set.all %}
+GC <i>t</i><sub>R</sub>(major) {{item.major_retention_time}} min,
+<i>t</i><sub>R</sub>(minor) {{item.minor_retention_time}} min;
+{% endfor %}
+
+{% for item in object.protonnmr_set.all %}
+<sup>1</sup>H NMR ({{item.frequency}}, {{item.solvent|formulize}}) &delta;{% endfor %}
+
+{% for item in object.protonjvalues_set.all %}
+{{item.shift}} ({{ item.peak_type }},
+{% if item.j_value_1 %}<i>J</i> = {{item.j_value_1}},{% endif %}
+{% if item.j_value_2 %}{{item.j_value_2}},{% endif %}
+{% if item.j_value_3 %}{{item.j_value_3}},{% endif %}
+{% if item.j_value_4 %}{{item.j_value_4}},{% endif %}
+{{item.integration}}H){% if not forloop.last %},{% endif%}
+{% endfor %}
+
+</div>
