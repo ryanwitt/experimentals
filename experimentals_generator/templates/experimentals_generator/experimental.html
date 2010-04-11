@@ -1,3 +1,7 @@
+{% extends "experimentals_generator/base.html" %}
+
+{% block body %}
+
 {% load formulize %}
 
 <h1>{{object.name}}</h1>
@@ -42,7 +46,6 @@ IR {% for o in object.irtype_set.all %}({{ o.type }}){% endfor %}
 HRMS ({{item.type}}) <i>m / z</i> calcd for {{item.formula|formulize}} ({{item.fragment_type}})<sup>{% if item.fragment_charge %}+{%else%}-{%endif%}</sup> {{item.calculated}}, found {{item.found}}.
 {% endfor %}
 
-
 </div>
 
-
+{% endblock body %}
