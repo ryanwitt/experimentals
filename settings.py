@@ -80,3 +80,9 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 	'experimentals_generator',
 )
+
+try:
+    from settings_local import *
+except ImportError:
+    pass
+
