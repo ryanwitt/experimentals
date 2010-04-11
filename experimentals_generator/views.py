@@ -3,9 +3,6 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from models import *
 
-def index(request):
-	return HttpResponse('hi ryan')
-
 def experimental(request, id):
 	return render_to_response(
 		'experimentals_generator/experimental.html',

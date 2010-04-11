@@ -7,7 +7,7 @@
 {% for item in object.opticalrotation_set.all %}
 
 [&alpha;]<sup>{{item.temperature}}</sup><sub>D</sub>
-{{item.value}} (<i>c</i> {{item.concentration}}, {{item.solvent}});
+{{item.value}} (<i>c</i> {{item.concentration}}, {{item.solvent|formulize}});
 
 {% endfor %}
 
@@ -17,15 +17,32 @@ GC <i>t</i><sub>R</sub>(major) {{item.major_retention_time}} min,
 {% endfor %}
 
 {% for item in object.protonnmr_set.all %}
-<sup>1</sup>H NMR ({{item.frequency}}, {{item.solvent|formulize}}) &delta;{% endfor %}
-
-{% for item in object.protonjvalues_set.all %}
+<sup>1</sup>H NMR ({{item.frequency}} MHz, {{item.solvent|formulize}}) &delta;{% endfor %}
+{% for item in object.protonnmrshift_set.all %}
 {{item.shift}} ({{ item.peak_type }},
 {% if item.j_value_1 %}<i>J</i> = {{item.j_value_1}},{% endif %}
 {% if item.j_value_2 %}{{item.j_value_2}},{% endif %}
 {% if item.j_value_3 %}{{item.j_value_3}},{% endif %}
 {% if item.j_value_4 %}{{item.j_value_4}},{% endif %}
-{{item.integration}}H){% if not forloop.last %},{% endif%}
+{{item.integration}}H){% if not forloop.last %},{% endif %}{% endfor %};
+
+{% for item in object.carbonnmr_set.all %}
+<sup>13</sup>C NMR ({{item.frequency}} MHz, {{item.solvent|formulize}}) &delta;
 {% endfor %}
 
+{% for item in object.carbonnmrshift_set.all %}
+{{item.shift}}{% if not forloop.last %},{% endif %}{% endfor %};
+
+{% if object.irpeak_set.all.count %}
+IR {% for o in object.irtype_set.all %}({{ o.type }}){% endfor %}
+{% for item in object.irpeak_set.all %}
+{{item.value}}{% if not forloop.last %},{% endif %}{% endfor %}{% endif %} cm<sup>-1</sup>;
+
+{% for item in object.hrms_set.all %}
+HRMS ({{item.type}}) <i>m / z</i> calcd for {{item.formula|formulize}} ({{item.fragment_type}})<sup>{% if item.fragment_charge %}+{%else%}-{%endif%}</sup> {{item.calculated}}, found {{item.found}}.
+{% endfor %}
+
+
 </div>
+
+

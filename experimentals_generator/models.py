@@ -33,7 +33,7 @@ class ProtonNMR(Model):
 	class Meta:
 		verbose_name = 'Proton NMR'
 
-class ProtonJValues(Model):
+class ProtonNMRShift(Model):
 	molecule = ForeignKey('Molecule')
 	shift = CharField(blank=True, max_length=32)
 	peak_type = CharField(blank=True, max_length=32)
@@ -43,5 +43,42 @@ class ProtonJValues(Model):
 	j_value_3 = CharField(blank=True, max_length=8)
 	j_value_4 = CharField(blank=True, max_length=8)
 	class Meta:
-		verbose_name = 'Proton J-Value'
+		verbose_name = 'Proton NMR Shift'
+
+class CarbonNMR(Model):
+	molecule = ForeignKey('Molecule')
+	frequency = CharField(blank=True, max_length=32)
+	solvent = CharField(blank=True, max_length=32)
+	class Meta:
+		verbose_name = 'Carbon NMR'
+
+class CarbonNMRShift(Model):
+	molecule = ForeignKey('Molecule')
+	shift = CharField(blank=True, max_length=8)
+	class Meta:
+		verbose_name = 'Carbon NMR Shift'
+
+class IRType(Model):
+	molecule = ForeignKey('Molecule')
+	type = CharField(blank=True, max_length=32)
+	class Meta:
+		verbose_name = 'IR Type'
+
+class IRPeak(Model):
+	molecule = ForeignKey('Molecule')
+	value = CharField(blank=True, max_length=8)
+	class Meta:
+		verbose_name = 'IR Peak'
+    
+class HRMS(Model):
+	molecule = ForeignKey('Molecule')
+	type = CharField(blank=True, max_length=32)
+	formula = CharField(blank=True, max_length=32)
+	fragment_type = CharField(blank=True, max_length=32)
+	fragment_charge = BooleanField(blank=True, help_text = 'check for positive')
+	found = CharField(blank=True, max_length=32)
+	calculated = CharField(blank=True, max_length=32)
+	class Meta:
+		verbose_name = 'High Res Mass Spec'
+
 

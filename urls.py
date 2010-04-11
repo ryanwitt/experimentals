@@ -1,13 +1,11 @@
 from django.conf.urls.defaults import *
 import experimentals_generator.views
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    # Example:
     (r'^experimentals/', include('experimentals_generator.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
