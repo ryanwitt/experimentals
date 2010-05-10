@@ -22,7 +22,7 @@ GC <i>t</i><sub>R</sub>(major) {{item.major_retention_time}} min,
 
 {% for item in object.protonnmr_set.all %}
 <sup>1</sup>H NMR ({{item.frequency}} MHz, {{item.solvent|formulize}}) &delta;{% endfor %}
-{% for item in object.protonnmrshift_set.all %}
+{% for item in object.protonnmrshifts %}
 {{item.shift}} ({{ item.peak_type }},
 {% if item.j_value_1 %}<i>J</i> = {{item.j_value_1}},{% endif %}
 {% if item.j_value_2 %}{{item.j_value_2}},{% endif %}
